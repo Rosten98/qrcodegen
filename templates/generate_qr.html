@@ -62,7 +62,7 @@
                     <label class="col-form-label text-body-secondary" for="qr_message">Mensaje:</label>
                     <textarea class="form-control border-1" placeholder="Hola..." id="qr_message" name="qr_message"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary mt-4">
+                <button type="submit" class="btn btn-primary mt-4" id="btn_generate_qr">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                         class="bi bi-qr-code-scan me-1" viewBox="0 0 16 16">
                         <path
@@ -75,13 +75,17 @@
                     </svg>
                     Generar código QR
                 </button>
+                <button class="btn btn-primary mt-4" type="button" id="btn_generating_qr" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    <span class="">Generando código QR</span>
+                </button>
             </form>
         </div>
         
         <div class="col-md-4 d-flex flex-column justify-content-center align-items-center mt-4">
             <div id="qr-placeholder">
                 <svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" fill="currentColor" class="bi bi-qr-code-scan p-4"
-                    viewBox="0 0 16 16">
+                    viewBox="0 0 16 16" id="svg-qr">
                     <path
                         d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z" />
                     <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z" />
@@ -89,16 +93,17 @@
                     <path
                         d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z" />
                     <path d="M12 9h2V8h-2z" />
+                    <rect id="moving-bar" x="0" y="0" width="100" height="2" fill="rgba(255,255,255, 0.4)"/>
                 </svg>
             </div>
             <div id="final-qr">
-                <img src="" alt="" id="generated_qr_img">
+                <img src="" alt="" id="generated_qr_img" class="mw-100">
                 <a href="" class="btn btn-light" id="download_qr_btn" download> 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
                         <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
                     </svg>
-                    Download 
+                    Descargar 
                 </a>
             </div>
 

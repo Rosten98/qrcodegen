@@ -17,19 +17,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function showQR(img_src) {
+function toggleQRimg(img_src, active) {
     let qr_placeholder = document.getElementById('qr-placeholder');
     let final_qr = document.getElementById('final-qr');
     let img_generated = document.getElementById('generated_qr_img');
     let btn_download = document.getElementById('download_qr_btn');
 
-    img_generated.src = img_src;
-    btn_download.href = img_src;
-    
-    qr_placeholder.style.display = 'none'
-    final_qr.removeAttribute('style')
-    final_qr.classList.add('d-flex');
-    final_qr.classList.add('flex-column');
+    if(active){
+        img_generated.src = img_src;
+        btn_download.href = img_src;
+        
+        qr_placeholder.style.display = 'none'
+        final_qr.removeAttribute('style')
+        final_qr.classList.add('d-flex');
+        final_qr.classList.add('flex-column');
+    } else {
+        qr_placeholder.style.display = 'block';
+        final_qr.classList.remove('d-flex');
+        final_qr.classList.remove('flex-column');
+        final_qr.style.display = 'none';
+    }
 }
 
 
@@ -49,8 +56,26 @@ function hideFormFields(){
      }
 }
 
+function toggleGeneratingBtn(enable) {
+    moveBar();
+    const btn_generate = document.getElementById('btn_generate_qr');
+    const btn_generating = document.getElementById('btn_generating_qr');
+
+    if(enable){
+        btn_generate.style.display = 'none';
+        btn_generating.style.display = 'block'
+    } else {
+        btn_generate.style.display = 'block';
+        btn_generating.style.display = 'none'
+    }
+}
+
 async function sendRequest(e) {
     e.preventDefault();
+    
+    toggleQRimg('', false)
+    toggleGeneratingBtn(true);
+    
     const form = e.target;
     const qr_form = new FormData(form);
     
@@ -112,9 +137,11 @@ async function sendRequest(e) {
 
         let img_src = 'data:image/png;base64,'+json.qr_image_base64;
 
-        showQR(img_src)
+        toggleQRimg(img_src, true)
+        toggleGeneratingBtn(false);
         
     } catch (error) {
+        toggleGeneratingBtn(false);
         console.error('Error:', error);
     }
 }
@@ -134,4 +161,34 @@ function getCookie(name) {
     }
     // console.log(cookieValue)
     return cookieValue;
+}
+
+
+
+function moveBar() {
+    let bar = document.getElementById("moving-bar");
+    let svg = document.getElementById("svg-qr");
+
+    bar.style.display = 'block'
+    
+    let start = 0;
+    let end = svg.getBoundingClientRect().height; // get the height of the svg
+    let speed = 10; // change this to control the speed of the movement
+    start += speed;
+
+    console.log(start)
+    console.log(end)
+    
+    // Reset to the top once it reaches the bottom
+    if (start > end) {
+        start = 0;
+    }
+    
+    // Move the bar by changing its transform (smooth effect)
+    bar.style.transform = `translateY(${start}px)`;
+
+    console.log(bar.style.transform )
+
+    // Use requestAnimationFrame to animate
+    // requestAnimationFrame(moveBar);
 }

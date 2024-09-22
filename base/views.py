@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-import json
+import json, time
 import qrcode
 # https://pypi.org/project/qrcode/
 from io import BytesIO
@@ -31,6 +31,9 @@ def generate_qr(data):
 
     # Encode the image to Base64 to embed it in the HTML
     img_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+    # Added delay to make the loading button show up
+    time.sleep(0.5)
     
     return img_base64
 

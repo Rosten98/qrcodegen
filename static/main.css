@@ -1,0 +1,8 @@
+#btn_generating_qr {
+    display: none;
+}
+
+#moving-bar {
+    display: none;
+    transition: transform 1s linear;
+}
