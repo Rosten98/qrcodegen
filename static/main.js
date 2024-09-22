@@ -186,9 +186,4 @@ function moveBar() {
     
     // Move the bar by changing its transform (smooth effect)
     bar.style.transform = `translateY(${start}px)`;
-
-    console.log(bar.style.transform )
-
-    // Use requestAnimationFrame to animate
-    // requestAnimationFrame(moveBar);
 }
